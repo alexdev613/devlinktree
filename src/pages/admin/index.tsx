@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input"
 
@@ -14,12 +14,55 @@ import {
   deleteDoc
 } from 'firebase/firestore';
 
+interface LinkProps {
+  id: string;
+  name: string;
+  url: string;
+  bg: string;
+  color: string;
+}
+
 export function Admin() {
 
   const [nameInput, setNameInput] = useState("");
   const [urlInput, setUrlInput] = useState("");
   const [textColorInput, setTextColorInput] = useState("#f1f1f1");
-  const [backgroundColorInput, setBackgroundColorInput] =useState("#121212")
+  const [backgroundColorInput, setBackgroundColorInput] =useState("#121212");
+
+  const [links, setLinks] = useState<LinkProps[]>([]);
+
+  useEffect(() => {
+    const linksRef = collection(db, "links");
+    const queryRef = query(linksRef, orderBy("created", "asc"));
+
+    const unsub = onSnapshot(queryRef, (snapshot) => {
+      //console.log(snapshot);
+      let lista = [] as LinkProps[];
+
+      snapshot.forEach((doc) => {
+        
+        lista.push({
+          id: doc.id,
+          name: doc.data().name,
+          url: doc.data().url,
+          bg: doc.data().bg,
+          color: doc.data().color
+        })
+      })
+
+      console.log(lista);
+      setLinks(lista);
+    
+    })
+
+    /* Para impedir a funcionalidade do onSapshot quando a página admin for desmontada,
+      evitando perda de performance desnecessária já que o onSnapshot é um listener e
+      saindo da página não faz mais sentido ele estar escutando as atualizações do banco: */
+    return () => {
+      unsub();
+    }
+
+  }, []);
 
   async function handleRegister(e: FormEvent){
     e.preventDefault();
@@ -45,6 +88,12 @@ export function Admin() {
       console.log("ERRO AO CADASTRAR NO BANCO: " + error )
     })
 
+  }
+
+  async function handleDeleteLink(id: string) {
+    const docRef = doc(db, "links", id);
+
+    await deleteDoc(docRef)
   }
 
   return (
@@ -113,19 +162,25 @@ export function Admin() {
         Meus links
       </h2>
 
-      <article
-        className="flex items-center justify-between w-11/12 max-w-xl rounded py-3 px-2 mb-2 select-none"
-        style={{ backgroundColor: "#2563EB", color: "#FFF" }}
-      >
-        <p>Canal do youtube</p>
+      {links.map( (link) => (
+        
+        <article
+          key={link.id}
+          className="flex items-center justify-between w-11/12 max-w-xl rounded py-3 px-2 mb-2 select-none"
+          style={{ backgroundColor: link.bg, color: link.color }}
+        >
+        <p>{link.name}</p>
         <div>
           <button
             className="border border-dashed p-1 rounded bg-neutral-900"
+            onClick={ () => handleDeleteLink(link.id) }
           >
             <FiTrash size={18} color="#FFF" />
           </button>
         </div>
       </article>
+      
+      ))}
 
     </div>
   )
