@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 
@@ -7,14 +7,35 @@ import {
   setDoc,
   doc,
   getDoc,
-  collection,
 } from "firebase/firestore";
 
 export function Networks() {
   const [facebook, setFacebook] = useState("");
   const [instagram, setInstagram] = useState("");
   const [youtube, setYoutube] = useState("");
+  const [github, setGithub] = useState("");
 
+  // Para buscar/pegar dados das redes sociais cadastradas
+  useEffect(() => {
+    function loadLinks() {
+      const docRef = doc(db, "social", "link");
+
+      // Usando o getDoc não temos atualização em tempo real como o onSnapshot, o getDoc só pega uma vez do banco de Dados:
+      getDoc(docRef)
+      .then((snapshot) => {
+        if(snapshot.data() !== undefined) {
+          setFacebook(snapshot.data()?.facebook);
+          setInstagram(snapshot.data()?.instagram);
+          setYoutube(snapshot.data()?.youtube);
+          setGithub(snapshot.data()?.github);
+        }
+      })
+    }
+
+    loadLinks();
+  }, [])
+
+  // Para registrar redes sociais:
   function handleRegister(e: FormEvent) {
     e.preventDefault();
 
@@ -22,6 +43,7 @@ export function Networks() {
       facebook: facebook,
       instagram: instagram,
       youtube: youtube,
+      github: github
     })
     .then(() => {
       console.log("CADASTRADOS COM SUCESSO!");
@@ -42,7 +64,7 @@ export function Networks() {
       <h1 className="text-white text-2xl font-medium mt-8 mb-4">Minhas redes sociais</h1>
 
       <form className="flex flex-col max-w-xl w-full" onSubmit={handleRegister}>
-        <label className="text-white font-medium mt-2 mb-2">Link do facebook</label>
+        <label className="text-white font-medium mt-2 mb-2">Link do Facebook</label>
         <Input
           type="url"
           placeholder="Digite a url do facebook..."
@@ -50,7 +72,7 @@ export function Networks() {
           onChange={ (e) => setFacebook(e.target.value) }
         />
 
-        <label className="text-white font-medium mt-2 mb-2">Link do instagram</label>
+        <label className="text-white font-medium mt-2 mb-2">Link do Instagram</label>
         <Input
           type="url"
           placeholder="Digite a url do instagram..."
@@ -58,7 +80,7 @@ export function Networks() {
           onChange={ (e) => setInstagram(e.target.value) }
         />
 
-        <label className="text-white font-medium mt-2 mb-2">Link do youtube</label>
+        <label className="text-white font-medium mt-2 mb-2">Link do Youtube</label>
         <Input
           type="url"
           placeholder="Digite a url do youtube..."
@@ -66,9 +88,17 @@ export function Networks() {
           onChange={ (e) => setYoutube(e.target.value) }
         />
 
+        <label className="text-white font-medium mt-2 mb-2">Link do Github</label>
+        <Input
+          type="url"
+          placeholder="Digite a url do github..."
+          value={github}
+          onChange={ (e) => setGithub(e.target.value) }
+        />
+
         <button
           type="submit"
-          className="flex bg-blue-600 text-white h-9 rounded-md items-center justify-center mb-7 font-medium"
+          className="flex bg-blue-600 text-white h-9 rounded-md items-center justify-center mb-7 font-medium mt-3"
         >
           Salvar links
         </button>
