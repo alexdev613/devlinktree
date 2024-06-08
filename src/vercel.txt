@@ -1,0 +1,1 @@
+O arquivo vercel.json é um arquivo de configuração para o 'react-router-dom' reconhecer as rotas e conseguirmos utilizar a navegação do 'react-router-dom' após o deploy da vercel!
