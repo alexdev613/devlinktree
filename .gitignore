@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # .gitignore
-/src/services/firebaseConnection.ts
+/src/services/
