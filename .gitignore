@@ -25,4 +25,4 @@ dist-ssr
 
 
 # .gitignore
-src/services/
+.env
