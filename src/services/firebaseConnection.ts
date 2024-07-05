@@ -13,8 +13,8 @@ import { getAuth } from 'firebase/auth';
     appId: "1:749727128957:web:bb37fc70f0b3ef8bb70014"
   };
 
-// inicialização da configuração do nosso banco de dados do Firebase:
 const app = initializeApp(firebaseConfig);
+
 // inicializar os serviços de autenticação e de banco de dados:
 const auth = getAuth(app);
 const db = getFirestore(app);
