@@ -4,12 +4,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log('VITE_FIREBASE_API_KEY:', process.env.REACT_APP_FIREBASE_API_KEY);
-console.log('VITE_FIREBASE_AUTH_DOMAIN:', process.env.REACT_APP_FIREBASE_AUTH_DOMAIN);
-console.log('VITE_FIREBASE_PROJECT_ID:', process.env.REACT_APP_FIREBASE_PROJECT_ID);
-console.log('VITE_FIREBASE_STORAGE_BUCKET:', process.env.REACT_APP_FIREBASE_STORAGE_BUCKET);
-console.log('VITE_FIREBASE_MESSAGING_SENDER_ID:', process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID);
-console.log('VITE_FIREBASE_APP_ID:', process.env.REACT_APP_FIREBASE_APP_ID);
+// console.log('VITE_FIREBASE_API_KEY:', process.env.REACT_APP_FIREBASE_API_KEY);
+// console.log('VITE_FIREBASE_AUTH_DOMAIN:', process.env.REACT_APP_FIREBASE_AUTH_DOMAIN);
+// console.log('VITE_FIREBASE_PROJECT_ID:', process.env.REACT_APP_FIREBASE_PROJECT_ID);
+// console.log('VITE_FIREBASE_STORAGE_BUCKET:', process.env.REACT_APP_FIREBASE_STORAGE_BUCKET);
+// console.log('VITE_FIREBASE_MESSAGING_SENDER_ID:', process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID);
+// console.log('VITE_FIREBASE_APP_ID:', process.env.REACT_APP_FIREBASE_APP_ID);
 
 // https://vitejs.dev/config/
 export default defineConfig({
