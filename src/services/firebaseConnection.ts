@@ -4,14 +4,14 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBycE_XuKC8z9FxvWuhKPo7Lrami7B7PP4",
-  authDomain: "devlinktree-487e3.firebaseapp.com",
-  projectId: "devlinktree-487e3",
-  storageBucket: "devlinktree-487e3.appspot.com",
-  messagingSenderId: "749727128957",
-  appId: "1:749727128957:web:53e4ba97262bbfcdb70014"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyBycE_XuKC8z9FxvWuhKPo7Lrami7B7PP4",
+    authDomain: "devlinktree-487e3.firebaseapp.com",
+    projectId: "devlinktree-487e3",
+    storageBucket: "devlinktree-487e3.appspot.com",
+    messagingSenderId: "749727128957",
+    appId: "1:749727128957:web:bb37fc70f0b3ef8bb70014"
+  };
 
 // inicialização da configuração do nosso banco de dados do Firebase:
 const app = initializeApp(firebaseConfig);
