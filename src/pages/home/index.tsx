@@ -10,6 +10,7 @@ import {
   doc,
   getDoc
 } from 'firebase/firestore';
+import Alex from '../../assets/images/alex.ico';
 
 interface LinkProps {
   id: string;
@@ -82,7 +83,8 @@ export function Home() {
 
   return (
     <div className="flex flex-col w-full py-4 items-center justify-center">
-      <h1 className="md:text-4xl text-3xl font-bold text-white mt-20">Alex Nascimento</h1>
+      <img src={Alex} alt="" className='h-40 rounded-full mt-7'/>
+      <h1 className="md:text-4xl text-3xl font-bold text-white mt-5">Alex Nascimento</h1>
       <span className="text-gray-50 mb-5 mt-3">Veja meus links 👇🏼</span>
 
       <main className="flex flex-col w-11/12 max-w-xl text-center">
@@ -105,23 +107,28 @@ export function Home() {
         ))}
 
         {socialLinks && Object.keys(socialLinks).length > 0 && (
-          <footer className="flex justify-center gap-3 my-4">
-          <Social url={socialLinks?.facebook}>
-            <FaFacebook size={35} color='#FFF' />
-          </Social>
+          <footer>
+            <div className="flex justify-center gap-3 my-4">
+              <Social url={socialLinks?.facebook}>
+                <FaFacebook size={35} color='#FFF' />
+              </Social>
 
-          <Social url={socialLinks?.youtube}>
-            <FaYoutube size={35} color='#FFF' />
-          </Social>
+              <Social url={socialLinks?.youtube}>
+                <FaYoutube size={35} color='#FFF' />
+              </Social>
 
-          <Social url={socialLinks?.instagram}>
-            <FaInstagram size={35} color='#FFF' />
-          </Social>
+              <Social url={socialLinks?.instagram}>
+                <FaInstagram size={35} color='#FFF' />
+              </Social>
 
-          <Social url={socialLinks?.github}>
-            <FaGithub size={35} color='#FFF' />
-          </Social>
-        </footer>
+              <Social url={socialLinks?.github}>
+                <FaGithub size={35} color='#FFF' />
+              </Social>
+            </div>
+            <hr className='mb-3'/>
+            <section style={{color: "#FFF"}}>© Alex Heisenberg - 2024</section>
+
+          </footer>
         )}
       </main>
     </div>
